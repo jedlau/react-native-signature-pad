@@ -17,6 +17,10 @@ var content = (penColor, backgroundColor, dataURL, strokeWidthMin, strokeWidthMa
       signaturePadCanvas.getContext('2d').scale(devicePixelRatio, devicePixelRatio);
     };
 
+    var onBegin = function() {
+      executeNativeFunction('onBegin', {});
+    };
+
     var finishedStroke = function(base64DataUrl) {
        executeNativeFunction('finishedStroke', {base64DataUrl: base64DataUrl});
     };
@@ -27,6 +31,7 @@ var content = (penColor, backgroundColor, dataURL, strokeWidthMin, strokeWidthMa
         backgroundColor: '${backgroundColor || 'white'}',
         minWidth: ${strokeWidthMin},
         maxWidth: ${strokeWidthMax},
+        onBegin: function() { onBegin(); },
         onEnd: function() { finishedStroke(signaturePad.toDataURL()); }
       });
       /* signaturePad.translateMouseCoordinates = function (point) {

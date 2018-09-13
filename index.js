@@ -13,6 +13,7 @@ import injectedExecuteNativeFunction from './injectedJavaScript/executeNativeFun
 export default class SignaturePad extends Component {
 
   static propTypes = {
+    onBegin: PropTypes.func,
     onChange: PropTypes.func,
     onError: PropTypes.func,
     style: ViewPropTypes.style,
@@ -23,6 +24,8 @@ export default class SignaturePad extends Component {
   };
 
   static defaultProps = {
+    onBegin: () => {
+    },
     onChange: () => {
     },
     onError: () => {
@@ -98,6 +101,10 @@ export default class SignaturePad extends Component {
 
   _bridged_jsError = (args) => {
     this.props.onError({details: args});
+  };
+
+  _bridged_onBegin = (args) => {
+    this.props.onBegin();
   };
 
   _bridged_finishedStroke = ({base64DataUrl}) => {
